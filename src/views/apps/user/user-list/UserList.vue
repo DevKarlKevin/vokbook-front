@@ -284,10 +284,11 @@ import {
   mdiExportVariant,
   mdiAccountOutline,
 } from '@mdi/js'
+import store from '@/store'
 import { onUnmounted, ref } from '@vue/composition-api'
 
+// sidebar
 import { avatarText } from '@core/utils/filter'
-import store from '@/store'
 import UserListAddNew from './UserListAddNew.vue'
 import userStoreModule from '../userStoreModule'
 

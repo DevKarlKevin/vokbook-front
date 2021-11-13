@@ -83,10 +83,10 @@
                     color="primary"
                   >
                     <small class="d-block mb-1">
-                      Admin Email: <strong>admin@materio.com</strong> / Pass: <strong>admin</strong>
+                      Admin username: <strong>1</strong> / Pass: <strong>1</strong>
                     </small>
                     <small>
-                      Client Email: <strong>client@materio.com</strong> / Pass: <strong>client</strong>
+                      Client username: <strong>todo</strong> / Pass: <strong>todo</strong>
                     </small>
                   </v-alert>
                 </v-card-text>
@@ -98,12 +98,12 @@
                     @submit.prevent="handleFormSubmit"
                   >
                     <v-text-field
-                      v-model="email"
+                      v-model="username"
                       outlined
-                      label="Email"
-                      placeholder="email"
+                      label="Username"
+                      placeholder="username"
                       :error-messages="errorMessages.email"
-                      :rules="[validators.required, validators.emailValidator]"
+                      :rules="[validators.required]"
                       hide-details="auto"
                       class="mb-6"
                     ></v-text-field>
@@ -208,8 +208,8 @@ export default {
 
     const isPasswordVisible = ref(false)
 
-    const email = ref('admin@materio.com')
-    const password = ref('admin')
+    const username = ref('1')
+    const password = ref('1')
     const errorMessages = ref([])
     const socialLink = [
       {
@@ -249,18 +249,41 @@ export default {
         ? Promise Chaining: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises#chaining
       */
 
+      const credentials = btoa(`${username.value}:${password.value}`)
       axios
-        .post('/auth/login', { email: email.value, password: password.value })
-        .then(response => {
+        .post('authenticate', {
+          headers: {
+            Authorization: `Basic ${credentials}`,
+          },
+          withCredentials: true,
+          username: username.value,
+          password: password.value,
+        }).then(response => {
           const { accessToken } = response.data
+
+          console.log(accessToken)
 
           // ? Set access token in localStorage so axios interceptor can use it
           // Axios Interceptors: https://github.com/axios/axios#interceptors
           localStorage.setItem('accessToken', accessToken)
+          localStorage.setItem('userData', JSON.stringify(response.data))
 
-          return response
+          const userAbility = [
+            {
+              action: 'manage',
+              subject: 'all',
+            },
+          ]
+          vm.$ability.update(userAbility)
+
+          // Set user's ability in localStorage for Access Control
+          localStorage.setItem('userAbility', JSON.stringify(userAbility))
+
+          router.push('/dashboards/analytics')
         })
-        .then(() => {
+
+      // Do we need to get user details actually?
+      /* .then(() => {
           axios.get('/auth/me').then(response => {
             const { user } = response.data
             const { ability: userAbility } = user
@@ -288,14 +311,14 @@ export default {
           console.error('Oops, Unable to login!')
           console.log('error :>> ', error.response)
           errorMessages.value = error.response.data.error
-        })
+        }) */
     }
 
     return {
       handleFormSubmit,
 
       isPasswordVisible,
-      email,
+      username,
       password,
       errorMessages,
       socialLink,

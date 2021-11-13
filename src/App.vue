@@ -21,14 +21,13 @@ import useAppConfig from '@core/@app-config/useAppConfig'
 import { useRouter } from '@core/utils'
 import { useLayout } from '@core/layouts/composable/useLayout'
 
-// Dynamic vh
-import useDynamicVh from '@core/utils/useDynamicVh'
-
 // Layouts
 import LayoutContentVerticalNav from '@/layouts/variants/content/vertical-nav/LayoutContentVerticalNav.vue'
 import LayoutContentHorizontalNav from '@/layouts/variants/content/horizontal-nav/LayoutContentHorizontalNav.vue'
-
 import LayoutBlank from '@/layouts/variants/blank/LayoutBlank.vue'
+
+// Dynamic vh
+import useDynamicVh from '@core/utils/useDynamicVh'
 
 export default {
   components: {

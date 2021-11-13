@@ -124,9 +124,9 @@
 
 <script>
 import { mdiPoll, mdiLabelVariantOutline } from '@mdi/js'
-import StatisticsCardSessionBarChart from '@core/components/statistics-card/StatisticsCardSessionBarChart.vue'
 import StatisticsCardProfitLineChart from '@core/components/statistics-card/StatisticsCardProfitLineChart.vue'
 import StatisticsCardVertical from '@/@core/components/statistics-card/StatisticsCardVertical.vue'
+import StatisticsCardSessionBarChart from '@core/components/statistics-card/StatisticsCardSessionBarChart.vue'
 
 // demos
 import AnalyticsCongratulationJohn from './AnalyticsCongratulationJohn.vue'

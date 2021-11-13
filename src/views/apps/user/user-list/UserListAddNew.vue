@@ -149,10 +149,10 @@
 
 <script>
 import { mdiClose } from '@mdi/js'
+import countries from '@/@fake-db/data/other/countries'
+import store from '@/store'
 import { ref } from '@vue/composition-api'
 import { required, emailValidator } from '@core/utils/validation'
-import store from '@/store'
-import countries from '@/@fake-db/data/other/countries'
 
 export default {
   model: {

@@ -154,9 +154,9 @@
 <script>
 // eslint-disable-next-line object-curly-newline
 import { mdiTrendingUp, mdiCurrencyUsd, mdiCheck, mdiChartTimelineVariant } from '@mdi/js'
+import StatisticsCardVertical from '@/@core/components/statistics-card/StatisticsCardVertical.vue'
 import StatisticsCardLineChart from '@core/components/statistics-card/StatisticsCardLineChart.vue'
 import StatisticsCardRadialBarChart from '@core/components/statistics-card/StatisticsCardRadialBarChart.vue'
-import StatisticsCardVertical from '@/@core/components/statistics-card/StatisticsCardVertical.vue'
 
 // demos
 import EcommerceCongratulationJohn from './EcommerceCongratulationJohn.vue'

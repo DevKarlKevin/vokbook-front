@@ -307,6 +307,8 @@
 </template>
 
 <script>
+import StatisticsCardHorizontal from '@/@core/components/statistics-card/StatisticsCardHorizontal.vue'
+import StatisticsCardVertical from '@/@core/components/statistics-card/StatisticsCardVertical.vue'
 import StatisticsCardWithImages from '@core/components/statistics-card/StatisticsCardWithImages.vue'
 import StatisticsCardLineChart from '@core/components/statistics-card/StatisticsCardLineChart.vue'
 import StatisticsCardBarChart from '@core/components/statistics-card/StatisticsCardBarChart.vue'
@@ -317,8 +319,6 @@ import StatisticsCardProfitLineChart from '@core/components/statistics-card/Stat
 
 // eslint-disable-next-line object-curly-newline
 import { mdiAccountOutline, mdiCurrencyUsd, mdiTrendingUp, mdiPoll, mdiLabelVariantOutline, mdiCheck } from '@mdi/js'
-import StatisticsCardVertical from '@/@core/components/statistics-card/StatisticsCardVertical.vue'
-import StatisticsCardHorizontal from '@/@core/components/statistics-card/StatisticsCardHorizontal.vue'
 
 // demos
 import StatisticsCard from './CardStatisticsCard.vue'

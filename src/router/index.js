@@ -1,6 +1,6 @@
+import { canNavigate } from '@/plugins/acl/routeProtection'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { canNavigate } from '@/plugins/acl/routeProtection'
 import apps from './apps'
 import dashboard from './dashboard'
 import pages from './pages'
@@ -13,14 +13,14 @@ const routes = [
   // NOTE: Role is just for UI purposes. ACL is based on abilities.
   {
     path: '/',
-    redirect: () => {
+    redirect: to => {
       const userData = JSON.parse(localStorage.getItem('userData'))
       const userRole = userData && userData.role ? userData.role : null
 
       if (userRole === 'admin') return { name: 'dashboard-crm' }
       if (userRole === 'client') return { name: 'page-access-control' }
 
-      return { name: 'auth-login' }
+      return { name: 'auth-login', query: to.query }
     },
   },
   {
@@ -87,9 +87,11 @@ router.beforeEach((to, _, next) => {
 
   const isLoggedIn = userData && localStorage.getItem('accessToken') && localStorage.getItem('userAbility')
 
+  console.log(isLoggedIn)
+  console.log(canNavigate(to))
   if (!canNavigate(to)) {
     // Redirect to login if not logged in
-    if (!isLoggedIn) return next({ name: 'auth-login' })
+    if (!isLoggedIn) return next({ name: 'auth-login', query: { marketplace: to.query.marketplace } })
 
     // If logged in => not authorized
     return next({ name: 'misc-not-authorized' })

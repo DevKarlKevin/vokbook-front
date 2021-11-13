@@ -39,10 +39,7 @@
     <!-- Slot: Footer -->
     <template #footer>
       <div class="d-flex justify-space-between">
-        <span>COPYRIGHT &copy; {{ new Date().getFullYear() }} <a
-          href="https://themeselection.com"
-          class="text-decoration-none"
-        >ThemeSelection</a><span class="d-none d-md-inline">, All rights Reserved</span></span>
+        <span>COPYRIGHT &copy; {{ new Date().getFullYear() }} DevKev<span class="d-none d-md-inline">, All rights Reserved</span></span>
         <div class="align-center d-none d-md-flex">
           <span>Hand-crafted &amp; Made with</span>
           <v-icon

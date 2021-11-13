@@ -118,11 +118,11 @@
 
 <script>
 import { onUnmounted, ref } from '@vue/composition-api'
+import router from '@/router'
+import store from '@/store'
 
 // eslint-disable-next-line object-curly-newline
 import { mdiAccountOutline, mdiLockOutline, mdiBookmarkOutline, mdiBellOutline, mdiLinkVariant } from '@mdi/js'
-import store from '@/store'
-import router from '@/router'
 import UserBioPanel from './user-bio-panel/UserBioPanel.vue'
 import userStoreModule from '../userStoreModule'
 import UserTabOverview from './user-tab-overview/UserTabOverview.vue'

@@ -431,8 +431,8 @@
 <script>
 import themeConfig from '@themeConfig'
 import { ref, onUnmounted } from '@vue/composition-api'
-import { mdiClose, mdiCogOutline } from '@mdi/js'
 import store from '@/store'
+import { mdiClose, mdiCogOutline } from '@mdi/js'
 import invoiceStoreModule from './invoiceStoreModule'
 
 export default {

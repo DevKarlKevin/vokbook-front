@@ -1,3 +1,4 @@
+import store from '@/store'
 import {
   mdiAccountCheckOutline,
   mdiAccountOutline,
@@ -9,7 +10,6 @@ import {
   mdiPencilOutline,
 } from '@mdi/js'
 import { ref, watch } from '@vue/composition-api'
-import store from '@/store'
 
 export default function useUsersList() {
   const userListTable = ref([])

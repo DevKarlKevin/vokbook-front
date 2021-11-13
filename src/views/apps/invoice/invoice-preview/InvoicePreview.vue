@@ -302,11 +302,11 @@
 
 <script>
 import { ref, onUnmounted } from '@vue/composition-api'
-import themeConfig from '@themeConfig'
-import { mdiSendOutline, mdiCurrencyUsd } from '@mdi/js'
 import store from '@/store'
-
 import router from '@/router'
+import { mdiSendOutline, mdiCurrencyUsd } from '@mdi/js'
+
+import themeConfig from '@themeConfig'
 import invoiceStoreModule from '../invoiceStoreModule'
 import InvoiceSidebarSendInvoice from '../InvoiceSidebarSendInvoice.vue'
 import InvoiceSidebarAddPayment from '../InvoiceSidebarAddPayment.vue'

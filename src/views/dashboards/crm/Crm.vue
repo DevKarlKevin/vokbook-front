@@ -156,8 +156,10 @@
 <script>
 import StatisticsCardWithImages from '@core/components/statistics-card/StatisticsCardWithImages.vue'
 import StatisticsCardAreaChart from '@core/components/statistics-card/StatisticsCardAreaChart.vue'
-import { mdiLabelVariantOutline } from '@mdi/js'
 import StatisticsCardVertical from '@/@core/components/statistics-card/StatisticsCardVertical.vue'
+
+// icons
+import { mdiLabelVariantOutline } from '@mdi/js'
 
 // demos
 import CrmStatisticsCard from './CrmStatisticsCard.vue'

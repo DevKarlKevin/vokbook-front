@@ -1,3 +1,4 @@
+import store from '@/store'
 import {
   mdiAlertCircleOutline,
   mdiChartTimelineVariant,
@@ -8,7 +9,6 @@ import {
   mdiEmailOutline,
 } from '@mdi/js'
 import { ref, watch } from '@vue/composition-api'
-import store from '@/store'
 
 export default function useInvoicesList() {
   const invoiceListTable = ref([])
