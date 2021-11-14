@@ -59,6 +59,11 @@ export default {
 
     const locales = [
       {
+        title: 'Estonian',
+        img: require('@/assets/images/flags/ee.png'),
+        locale: 'ee',
+      },
+      {
         title: 'English',
         img: require('@/assets/images/flags/en.png'),
         locale: 'en',

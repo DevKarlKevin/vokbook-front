@@ -2,7 +2,7 @@ import { mdiCheckboxBlankCircleOutline } from '@mdi/js'
 
 const themeConfig = {
   app: {
-    name: 'MATERIO',
+    name: 'VokBook',
     logo: require('@/assets/images/svg/logo.svg'),
     isDark: false,
     isRtl: false,
