@@ -26,10 +26,7 @@
         <!-- title -->
         <v-card-text>
           <p class="text-2xl font-weight-semibold text--primary mb-2">
-            Welcome to Materio! 👋🏻
-          </p>
-          <p class="mb-2">
-            Please sign-in to your account and start the adventure
+            Welcome to VokBook! 👋🏻
           </p>
         </v-card-text>
 

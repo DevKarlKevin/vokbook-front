@@ -8,6 +8,10 @@ export default [
     badgeColor: 'warning',
     children: [
       {
+        title: 'Vehicles',
+        to: 'dashboard-vehicles',
+      },
+      {
         title: 'CRM',
         to: 'dashboard-crm',
       },

@@ -28,28 +28,20 @@
         >
           <div class="auth-illustrator-wrapper">
             <!-- triangle bg -->
-            <img
+<!--            <img
               height="362"
               class="auth-mask-bg"
               :src="require(`@/assets/images/misc/mask-v2-${$vuetify.theme.dark ? 'dark':'light'}.png`)"
-            />
-
-            <!-- tree -->
-            <v-img
-              height="226"
-              width="300"
-              class="auth-tree"
-              src="@/assets/images/misc/tree-4.png"
-            ></v-img>
+            />-->
 
             <!-- 3d character -->
-            <div class="d-flex align-center h-full pa-16 pe-0">
+            <div class="d-flex align-center h-full pe-0">
               <v-img
                 contain
-                max-width="100%"
-                height="692"
+                max-width="70%"
+                height="70%"
                 class="auth-3d-group"
-                :src="require(`@/assets/images/3d-characters/group-${$vuetify.theme.dark ? 'dark' : 'light'}.png`)"
+                src="@/assets/images/misc/img-vok2.png"
               ></v-img>
             </div>
           </div>
@@ -70,10 +62,7 @@
               <v-card flat>
                 <v-card-text>
                   <p class="text-2xl font-weight-semibold text--primary mb-2">
-                    Welcome to Materio! 👋🏻
-                  </p>
-                  <p class="mb-2">
-                    Please sign-in to your account and start the adventure
+                    Welcome to VokBook! 👋🏻
                   </p>
                 </v-card-text>
 

@@ -8,6 +8,11 @@ export default [
     children: [
       {
         icon: mdiMonitorDashboard,
+        title: 'Vehicles',
+        to: 'dashboard-vehicles',
+      },
+      {
+        icon: mdiMonitorDashboard,
         title: 'CRM',
         to: 'dashboard-crm',
       },

@@ -8,7 +8,7 @@ const axiosIns = axios.create({
   // baseURL: 'https://some-domain.com/api/',
   // timeout: 1000,
   // headers: {'X-Custom-Header': 'foobar'}
-  baseURL: 'https://localhost:8080/api',
+  baseURL: 'http://localhost:8080/api',
   timeout: 1000 * 30,
 })
 
