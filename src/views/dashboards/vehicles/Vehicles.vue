@@ -61,7 +61,7 @@
         </v-card-title>
         <v-card-text>
           <v-text-field
-            v-model="comoduleID"
+            v-model="coModuleId"
             dense
             label="CoModule ID"
           ></v-text-field>
@@ -128,7 +128,7 @@
           <v-btn
             color="primary"
             dark
-            @click="isDialogTwoShow = !isDialogTwoShow"
+            @click="createVehicle()"
           >
             Add Vehicle
           </v-btn>
@@ -143,14 +143,60 @@ import {
   mdiPlus,
 } from '@mdi/js'
 import { ref } from '@vue/composition-api'
+import axios from '@axios'
 import router from '@/router'
 
 export default {
   components: {},
   setup() {
+    const vehicles = [{
+      coModuleID: 'Frozen Yogurt',
+      identifier: 159,
+      fleet: 6,
+      model: 24,
+      mileage: 4,
+      status: 4,
+      repo: 4,
+      ecuBranch: 4,
+      ecuCommit: 4,
+      csCommit: 4,
+    }]
+    async function getVehicles() {
+      await axios
+        .get('vehicles')
+        .then(response => {
+          response.data.forEach(vehicle => vehicles.push(vehicle))
+          console.log('on vä123', vehicles)
+        })
+
+      console.log('on vä', vehicles)
+    }
+
     function handleClick(value) {
       console.log(value.comoduleID)
       router.push('/dashboards/vehicles')
+    }
+
+    function createVehicle() {
+      axios
+        .post('vehicles', {
+          vokId: 'türa1',
+          identifier: 'türa3',
+          fleet: 'VOK_BIKES_TALLINN',
+          mileage: 0,
+          status: 'ACTIVE',
+          coModuleId: 'türaküll',
+          repo: 'türa7',
+          ecuBranch: 'türa8',
+          ecuCommit: 'türa9',
+          csCommit: 'türa10',
+          rfid: 'türa11türaküll',
+        })
+        .then(response => {
+          const midaiganes = response.data
+
+          console.log('tagasitüra', midaiganes)
+        })
     }
 
     const search = ref('')
@@ -161,7 +207,7 @@ export default {
     const tableColumn = [
       {
         text: 'CoModule ID',
-        value: 'comoduleID',
+        value: 'coModuleID',
         sortable: false,
       },
       {
@@ -195,192 +241,11 @@ export default {
         align: 'center',
       },
     ]
-    const vehicles = [
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 158,
-        fleet: 'tallinn',
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-      {
-        comoduleID: 'Frozen Yogurt',
-        identifier: 159,
-        fleet: 6,
-        model: 24,
-        mileage: 4,
-        status: 4,
-        repo: 4,
-        ecuBranch: 4,
-        ecuCommit: 4,
-        csCommit: 4,
-      },
-    ]
+    getVehicles()
 
     return {
-      vehicles,
       mdiPlus,
+      vehicles,
       tableColumn,
       search,
       isDialogVisible,
@@ -388,6 +253,8 @@ export default {
       models,
       fleets,
       handleClick,
+      createVehicle,
+      getVehicles,
     }
   },
 }
