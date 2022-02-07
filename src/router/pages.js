@@ -219,6 +219,22 @@ const pages = [
       resource: 'Demo',
     },
   },
+  {
+    path: '/pages/vehicle/:vehicleId',
+    name: 'vehicle',
+    component: () => import('@/views/pages/vehicle/Vehicle.vue'),
+    meta: {
+      layout: 'content',
+    },
+  },
+  {
+    path: '/pages/vehicle-model',
+    name: 'vehicle-model',
+    component: () => import('@/views/pages/vehicle-model/VehicleModel.vue'),
+    meta: {
+      layout: 'content',
+    },
+  },
 ]
 
 export default pages

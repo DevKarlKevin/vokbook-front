@@ -5,6 +5,7 @@ import apps from './apps'
 import dashboard from './dashboard'
 import pages from './pages'
 import userInterface from './user-interface'
+import forms from '@/router/forms'
 
 Vue.use(VueRouter)
 
@@ -66,6 +67,7 @@ const routes = [
   ...userInterface,
   ...apps,
   ...pages,
+  ...forms,
   {
     path: '*',
     redirect: 'error-404',

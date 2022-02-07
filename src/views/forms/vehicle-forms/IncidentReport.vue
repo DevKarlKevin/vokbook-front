@@ -1,16 +1,19 @@
 <template>
   <div>
     <v-row>
-      <v-col
-        cols="6"
-      >
-        <h1>
-          Vehicles
-        </h1>
+      <v-col>
+        <v-btn
+          color="primary"
+          outlined
+          dark
+          @click="toVehicleList()"
+        >
+          Back
+        </v-btn>
       </v-col>
 
       <v-col
-        cols="6"
+        cols="7"
         class="text-end"
       >
         <v-btn
@@ -18,35 +21,122 @@
           dark
           @click="isDialogVisible = true"
         >
-          Add vehicle
-          <v-icon
-            dark
-            right
-          >
-            {{ mdiPlus }}
-          </v-icon>
+          Create maintenance report
+        </v-btn>
+        <v-btn
+          color="info ml-3"
+          dark
+          @click="isDialogVisible = true"
+        >
+          Create incident report
+        </v-btn>
+        <v-btn
+          color="warning ml-3"
+          dark
+          @click="isDialogVisible = true"
+        >
+          Create ticket
         </v-btn>
       </v-col>
     </v-row>
+
+    <v-row class="mb-5">
+      <v-col
+        cols="8"
+      >
+        <h1 class="mb-4">
+          Vehicle 2105010
+        </h1>
+        <h3>b74fc15fede89c91</h3>
+      </v-col>
+
+      <v-col
+        cols="2"
+        class="text-start"
+      >
+        <h4>RFID</h4>
+        <h4>ECU Branch</h4>
+        <h4>ECU Commit</h4>
+        <h4>CS Commit</h4>
+      </v-col>
+
+      <v-col
+        cols="2"
+        class="text-end"
+      >
+        <h4>0x2315f905</h4>
+        <h4>master</h4>
+        <h4>bf38af2</h4>
+        <h4>cc92b65</h4>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col
+        cols="12"
+      >
+        <div>
+          <v-tabs
+            v-model="currentTab"
+            icons-and-text
+            grow
+          >
+            <v-tab>
+              Maintenance reports
+            </v-tab>
+
+            <v-tab>
+              Incident reports
+            </v-tab>
+
+            <v-tab>
+              Tickets
+            </v-tab>
+          </v-tabs>
+
+          <v-tabs-items v-model="currentTab">
+            <v-tab-item
+              :key="1"
+            >
+              <v-data-table
+                :headers="tableColumn"
+                :items="vehicles"
+                :search="search"
+                @click:row="handleClick"
+              >
+              </v-data-table>
+            </v-tab-item>
+            <v-tab-item
+              :key="2"
+            >
+              <v-card flat>
+                <v-card-text>uugabuuga2</v-card-text>
+              </v-card>
+            </v-tab-item>
+            <v-tab-item
+              :key="3"
+            >
+              <v-card flat>
+                <v-card-text>uugabuuga3</v-card-text>
+              </v-card>
+            </v-tab-item>
+          </v-tabs-items>
+        </div>
+      </v-col>
+
+    </v-row>
+
     <v-row>
       <v-col>
-        <v-card-text>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-        </v-card-text>
-
-        <v-data-table
-          :headers="tableColumn"
-          :items="vehicles"
-          :search="search"
-          @click:row="handleClick"
-        >
-        </v-data-table>
+        <!--        <v-card-text>
+                  <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    single-line
+                    hide-details
+                  ></v-text-field>
+                </v-card-text>-->
       </v-col>
     </v-row>
     <v-dialog
@@ -60,14 +150,6 @@
           Add new vehicle
         </v-card-title>
         <v-card-text>
-          <v-select
-            v-model="vehicle.model"
-            :items="models"
-            item-text="name"
-            item-value="id"
-            label="Model"
-            return-object
-          ></v-select>
           <v-text-field
             v-model="vehicle.vokId"
             dense
@@ -89,6 +171,14 @@
             item-text="state"
             item-value="abbr"
             label="Fleet"
+            return-object
+          ></v-select>
+          <v-select
+            v-model="vehicle.model"
+            :items="models"
+            item-text="state"
+            item-value="abbr"
+            label="Model"
             return-object
           ></v-select>
           <v-select
@@ -161,8 +251,8 @@ export default {
   data() {
     const tableColumn = [
       {
-        text: 'Vok ID',
-        value: 'vokId',
+        text: 'CoModule ID',
+        value: 'coModuleId',
         sortable: false,
       },
       {
@@ -199,28 +289,29 @@ export default {
 
     const search = ''
     const isDialogVisible = false
+    const currentTab = null
     const statuses = ['ACTIVE', 'INACTIVE']
+    const models = ['VOK1', 'VOK2', 'VOK3']
     const fleets = ['VOK_BIKES_TALLINN']
     const vehicle = {
-      vokId: '', identifier: '', fleet: '', mileage: '', status: '', coModuleId: '', model: '', repo: '', ecuBranch: '', ecuCommit: '', csCommit: '', rfid: '',
+      vokId: '', identifier: '', fleet: '', mileage: '', status: '', coModuleId: '', repo: '', ecuBranch: '', ecuCommit: '', csCommit: '', rfid: '',
     }
 
     return {
       mdiPlus,
-      vehicles: [],
       vehicle,
       tableColumn,
       search,
       isDialogVisible,
+      currentTab,
       statuses,
-      models: [],
+      models,
       fleets,
     }
   },
 
   mounted() {
     this.getVehicles()
-    this.getModels()
   },
 
   methods: {
@@ -229,14 +320,6 @@ export default {
         .get('vehicles')
         .then(response => {
           response.data.forEach(vehicle => this.vehicles.push(vehicle))
-        })
-    },
-
-    async getModels() {
-      await axios
-        .get('models')
-        .then(response => {
-          response.data.forEach(model => this.models.push(model))
         })
     },
 
@@ -249,7 +332,6 @@ export default {
           mileage: 0,
           status: vehicle.status,
           coModuleId: vehicle.coModuleId,
-          model: vehicle.model.id,
           repo: vehicle.repo,
           ecuBranch: vehicle.ecuBranch,
           ecuCommit: vehicle.ecuCommit,
@@ -265,7 +347,12 @@ export default {
 
     handleClick(value) {
       console.log(value)
-      router.push(`/pages/vehicle/${value.id}`)
+
+      /* router.push('/dashboards/vehicles') */
+    },
+
+    toVehicleList() {
+      router.push('/dashboards/vehicles')
     },
   },
 }
