@@ -14,7 +14,7 @@
           v-if="isEditable()"
           color="success"
           dark
-          @click="createModel()"
+          @click="saveModel()"
         >
           Save
         </v-btn>
@@ -218,13 +218,23 @@ export default {
       router.push('/dashboards/models')
     },
 
-    createModel() {
-      axios
-        .post('models/', {
-          name: this.model.name,
-          description: this.model.description,
-          vehicleModelParts: this.model.vehicleParts,
-        })
+    saveModel() {
+      if (this.model.id) {
+        axios
+          .put(`models/${this.model.id}`, {
+            name: this.model.name,
+            description: this.model.description,
+            vehicleModelParts: this.model.vehicleParts,
+          })
+      } else {
+        axios
+          .post('models/', {
+            name: this.model.name,
+            description: this.model.description,
+            vehicleModelParts: this.model.vehicleParts,
+          })
+      }
+
       this.toVehicleModelList()
     },
 
