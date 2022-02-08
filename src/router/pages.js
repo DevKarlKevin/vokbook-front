@@ -228,8 +228,24 @@ const pages = [
     },
   },
   {
-    path: '/pages/vehicle-model',
+    path: '/pages/vehicle-model/new',
     name: 'vehicle-model',
+    component: () => import('@/views/pages/vehicle-model/VehicleModel.vue'),
+    meta: {
+      layout: 'content',
+    },
+  },
+  {
+    path: '/pages/vehicle-model/:modelId',
+    name: 'vehicle-model-view',
+    component: () => import('@/views/pages/vehicle-model/VehicleModel.vue'),
+    meta: {
+      layout: 'content',
+    },
+  },
+  {
+    path: '/pages/vehicle-model/:modelId/edit',
+    name: 'vehicle-model-edit',
     component: () => import('@/views/pages/vehicle-model/VehicleModel.vue'),
     meta: {
       layout: 'content',

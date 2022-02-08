@@ -12,6 +12,10 @@ export default [
         to: 'dashboard-vehicles',
       },
       {
+        title: 'Models',
+        to: 'dashboard-models',
+      },
+/*      {
         title: 'CRM',
         to: 'dashboard-crm',
       },
@@ -22,7 +26,7 @@ export default [
       {
         title: 'eCommerce',
         to: 'dashboard-eCommerce',
-      },
+      },*/
     ],
   },
 ]

@@ -8,6 +8,14 @@ const dashboard = [
     },
   },
   {
+    path: '/dashboards/models',
+    name: 'dashboard-models',
+    component: () => import('@/views/dashboards/vehicle-models/VehicleModels.vue'),
+    meta: {
+      layout: 'content',
+    },
+  },
+  {
     path: '/dashboards/crm',
     name: 'dashboard-crm',
     component: () => import('@/views/dashboards/crm/Crm.vue'),

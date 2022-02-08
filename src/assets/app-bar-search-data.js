@@ -55,6 +55,7 @@ export default [
 
   // dashboard
   { title: 'Vehicles', to: { name: 'dashboard-vehicles' }, icon: mdiHomeOutline },
+  { title: 'Models', to: { name: 'dashboard-models' }, icon: mdiHomeOutline },
   { title: 'CRM', to: { name: 'dashboard-crm' }, icon: mdiHomeOutline },
   { title: 'Analytics', to: { name: 'dashboard-analytics' }, icon: mdiHomeOutline },
   { title: 'eCommerce', to: { name: 'dashboard-eCommerce' }, icon: mdiHomeOutline },
