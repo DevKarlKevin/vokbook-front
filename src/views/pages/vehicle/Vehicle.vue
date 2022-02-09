@@ -19,21 +19,15 @@
         <v-btn
           color="success"
           dark
-          @click="createReport('maintenance-report')"
+          @click="createReport('service-report')"
         >
-          Create maintenance report
+          Create service report
         </v-btn>
         <v-btn
-          color="info ml-3"
+          color="info"
+          class="ml-3"
           dark
-          @click="createReport('incident-report')"
-        >
-          Create incident report
-        </v-btn>
-        <v-btn
-          color="warning ml-3"
-          dark
-          @click="createReport('ticket')"
+          @click="isDialogVisible = true"
         >
           Create ticket
         </v-btn>
@@ -45,9 +39,9 @@
         cols="8"
       >
         <h1 class="mb-4">
-          Vehicle 2105010
+          Vehicle {{ vehicle.vokId }}
         </h1>
-        <h3>b74fc15fede89c91</h3>
+        <h3>{{ vehicle.coModuleId }}</h3>
       </v-col>
 
       <v-col
@@ -64,10 +58,11 @@
         cols="2"
         class="text-end"
       >
-        <h4>0x2315f905</h4>
-        <h4>master</h4>
-        <h4>bf38af2</h4>
-        <h4>cc92b65</h4>
+        <h4>{{ vehicle.rfid }}</h4>
+        <h4>{{ vehicle.ecuBranch }}</h4>
+        <h4>{{ vehicle.ecuCommit }}</h4>
+        <h4>{{ vehicle.csCommit }}</h4>
+
       </v-col>
     </v-row>
 
@@ -82,11 +77,11 @@
             grow
           >
             <v-tab>
-              Maintenance reports
+              Service reports
             </v-tab>
 
             <v-tab>
-              Incident reports
+              Parts list(BOM)
             </v-tab>
 
             <v-tab>
@@ -101,7 +96,6 @@
               <v-data-table
                 :headers="tableColumn"
                 :items="vehicles"
-                :search="search"
                 @click:row="handleClick"
               >
               </v-data-table>
@@ -110,34 +104,20 @@
               :key="2"
             >
               <v-card flat>
-                <v-card-text>uugabuuga2</v-card-text>
+                <v-card-text>Parts list (BOM)</v-card-text>
               </v-card>
             </v-tab-item>
             <v-tab-item
               :key="3"
             >
               <v-card flat>
-                <v-card-text>uugabuuga3</v-card-text>
+                <v-card-text>List of tickets</v-card-text>
               </v-card>
             </v-tab-item>
           </v-tabs-items>
         </div>
       </v-col>
 
-    </v-row>
-
-    <v-row>
-      <v-col>
-<!--        <v-card-text>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-        </v-card-text>-->
-      </v-col>
     </v-row>
     <v-dialog
       v-model="isDialogVisible"
@@ -147,91 +127,12 @@
         <v-card-title
           class="mb-4"
         >
-          Add new vehicle
+          Create ticket
         </v-card-title>
         <v-card-text>
-          <v-text-field
-            v-model="vehicle.vokId"
-            dense
-            label="Vok ID"
-          ></v-text-field>
-          <v-text-field
-            v-model="vehicle.coModuleId"
-            dense
-            label="CoModule ID"
-          ></v-text-field>
-          <v-text-field
-            v-model="vehicle.identifier"
-            dense
-            label="Identifier"
-          ></v-text-field>
-          <v-select
-            v-model="vehicle.fleet"
-            :items="fleets"
-            item-text="state"
-            item-value="abbr"
-            label="Fleet"
-            return-object
-          ></v-select>
-          <v-select
-            v-model="vehicle.model"
-            :items="models"
-            item-text="state"
-            item-value="abbr"
-            label="Model"
-            return-object
-          ></v-select>
-          <v-select
-            v-model="vehicle.status"
-            :items="statuses"
-            item-text="state"
-            item-value="abbr"
-            label="Status"
-            return-object
-          ></v-select>
-          <v-text-field
-            v-model="vehicle.repo"
-            dense
-            label="Repo"
-          ></v-text-field>
-          <v-text-field
-            v-model="vehicle.ecuBranch"
-            dense
-            label="ECU branch"
-          ></v-text-field>
-          <v-text-field
-            v-model="vehicle.ecuCommit"
-            dense
-            label="ECU commit"
-          ></v-text-field>
-          <v-text-field
-            v-model="vehicle.csCommit"
-            dense
-            label="CS commit"
-          ></v-text-field>
-          <v-text-field
-            v-model="vehicle.rfid"
-            dense
-            label="RFID"
-          ></v-text-field>
+          ticket form incoming
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="error"
-            dark
-            outlined
-            @click="isDialogVisible = false"
-          >
-            Close
-          </v-btn>
-          <v-btn
-            color="primary"
-            dark
-            @click="createVehicle(vehicle)"
-          >
-            Add Vehicle
-          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -251,31 +152,13 @@ export default {
   data() {
     const tableColumn = [
       {
-        text: 'CoModule ID',
-        value: 'coModuleId',
+        text: 'Vok ID',
+        value: 'vokId',
         sortable: false,
       },
       {
-        text: 'Identifier',
-        value: 'identifier',
-        sortable: true,
-        align: 'center',
-      },
-      {
-        text: 'Fleet',
-        value: 'fleet',
-        sortable: true,
-        align: 'center',
-      },
-      {
-        text: 'Model',
-        value: 'model',
-        sortable: true,
-        align: 'center',
-      },
-      {
-        text: 'Mileage',
-        value: 'mileage',
+        text: 'Maintenance type',
+        value: 'maintenanceType',
         sortable: true,
         align: 'center',
       },
@@ -287,12 +170,8 @@ export default {
       },
     ]
 
-    const search = ''
     const isDialogVisible = false
     const currentTab = null
-    const statuses = ['ACTIVE', 'INACTIVE']
-    const models = ['VOK1', 'VOK2', 'VOK3']
-    const fleets = ['VOK_BIKES_TALLINN']
     const vehicle = {
       vokId: '', identifier: '', fleet: '', mileage: '', status: '', coModuleId: '', repo: '', ecuBranch: '', ecuCommit: '', csCommit: '', rfid: '',
     }
@@ -301,54 +180,28 @@ export default {
       mdiPlus,
       vehicle,
       tableColumn,
-      search,
       isDialogVisible,
       currentTab,
-      statuses,
-      models,
-      fleets,
     }
   },
 
   mounted() {
-    this.getVehicles()
+    this.getVehicle()
   },
 
   methods: {
-    async getVehicles() {
+    async getVehicle() {
       await axios
-        .get('vehicles')
+        .get(`vehicles/${this.$route.params.vehicleId}`)
         .then(response => {
-          response.data.forEach(vehicle => this.vehicles.push(vehicle))
+          this.vehicle.id = response.data.id
+          this.vehicle.vokId = response.data.vokId
+          this.vehicle.coModuleId = response.data.coModuleId
+          this.vehicle.rfid = response.data.rfid
+          this.vehicle.ecuBranch = response.data.ecuBranch
+          this.vehicle.ecuCommit = response.data.ecuCommit
+          this.vehicle.csCommit = response.data.csCommit
         })
-    },
-
-    createVehicle(vehicle) {
-      axios
-        .post('vehicles', {
-          vokId: vehicle.vokId,
-          identifier: vehicle.identifier,
-          fleet: vehicle.fleet,
-          mileage: 0,
-          status: vehicle.status,
-          coModuleId: vehicle.coModuleId,
-          repo: vehicle.repo,
-          ecuBranch: vehicle.ecuBranch,
-          ecuCommit: vehicle.ecuCommit,
-          csCommit: vehicle.csCommit,
-          rfid: vehicle.rfid,
-        })
-        .then(response => {
-          const newVehicle = response.data
-          this.vehicles.push(newVehicle)
-          this.isDialogVisible = false
-        })
-    },
-
-    handleClick(value) {
-      console.log(value)
-
-      /* router.push('/dashboards/vehicles') */
     },
 
     toVehicleList() {
@@ -356,11 +209,11 @@ export default {
     },
 
     createReport(formType) {
-      router.push(`/pages/vehicle/9/${formType}`)
+      router.push(`/pages/vehicle/${this.vehicle.id}/${formType}`)
+    },
 
-      /*
-      router.push(`/pages/vehicle/${vehicleId}/${formType}`)
-*/
+    handleClick(value) {
+      console.log(value)
     },
   },
 }
