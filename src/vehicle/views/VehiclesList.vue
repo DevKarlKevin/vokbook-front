@@ -41,8 +41,8 @@
         </v-card-text>
 
         <v-data-table
-          :headers="tableColumn"
-          :items="vehicles"
+          :headers="vehicleTable"
+          :items="vehiclesFromState"
           :search="search"
           @click:row="handleClick"
         >
@@ -149,58 +149,34 @@
 </template>
 
 <script>
-import {
-  mdiPlus,
-} from '@mdi/js'
+import { mdiPlus } from '@mdi/js'
+import { onUnmounted } from '@vue/composition-api/dist/vue-composition-api'
 import axios from '@axios'
+import store from '@/store'
 import router from '@/router'
+import vehicleStoreModule from '@/vehicle/store/vehicleStoreModule'
+import vehicleModelStoreModule from '@/vehicle/store/vehicleModelStoreModule'
+import vehicleTable from '@/vehicle/vehicle-table'
+import vehicleConst from '@/vehicle/vehicle-const'
 
 export default {
   components: {},
 
-  data() {
-    const tableColumn = [
-      {
-        text: 'Vok ID',
-        value: 'vokId',
-        sortable: false,
-      },
-      {
-        text: 'Identifier',
-        value: 'identifier',
-        sortable: true,
-        align: 'center',
-      },
-      {
-        text: 'Fleet',
-        value: 'fleet',
-        sortable: true,
-        align: 'center',
-      },
-      {
-        text: 'Model',
-        value: 'model',
-        sortable: true,
-        align: 'center',
-      },
-      {
-        text: 'Mileage',
-        value: 'mileage',
-        sortable: true,
-        align: 'center',
-      },
-      {
-        text: 'Status',
-        value: 'status',
-        sortable: true,
-        align: 'center',
-      },
-    ]
+  setup() {
+    // Register module
+    vehicleStoreModule.registerStore()
+    vehicleModelStoreModule.registerStore()
 
+    // UnRegister on leave
+    onUnmounted(() => {
+      vehicleStoreModule.unregisterStore()
+      vehicleModelStoreModule.unregisterStore()
+    })
+  },
+
+  data() {
     const search = ''
     const isDialogVisible = false
-    const statuses = ['ACTIVE', 'INACTIVE']
-    const fleets = ['VOK_BIKES_TALLINN']
     const vehicle = {
       vokId: '', identifier: '', fleet: '', mileage: '', status: '', coModuleId: '', model: '', repo: '', ecuBranch: '', ecuCommit: '', csCommit: '', rfid: '',
     }
@@ -209,13 +185,19 @@ export default {
       mdiPlus,
       vehicles: [],
       vehicle,
-      tableColumn,
+      vehicleTable,
       search,
       isDialogVisible,
-      statuses,
+      statuses: vehicleConst.statuses,
       models: [],
-      fleets,
+      fleets: vehicleConst.fleets,
     }
+  },
+
+  computed: {
+    vehiclesFromState() {
+      return vehicleStoreModule.vehicleStore.state.vehicles
+    },
   },
 
   mounted() {
@@ -224,20 +206,14 @@ export default {
   },
 
   methods: {
-    async getVehicles() {
-      await axios
-        .get('vehicles')
-        .then(response => {
-          response.data.forEach(vehicle => this.vehicles.push(vehicle))
-        })
+    getVehicles() {
+      store.dispatch(vehicleStoreModule.fetchAllVehicles)
     },
 
-    async getModels() {
-      await axios
-        .get('models')
-        .then(response => {
-          response.data.forEach(model => this.models.push(model))
-        })
+    getModels() {
+      store.dispatch(vehicleModelStoreModule.fetchAllModels).then(response => {
+        response.data.forEach(model => this.models.push(model))
+      })
     },
 
     createVehicle(vehicle) {

@@ -204,7 +204,7 @@ export default {
   methods: {
     async getModel() {
       await axios
-        .get(`models/${this.$route.params.modelId}`)
+        .get(`v1/models/${this.$route.params.modelId}`)
         .then(response => {
           this.model.id = response.data.id
           this.model.name = response.data.name

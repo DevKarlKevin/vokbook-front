@@ -192,7 +192,7 @@ export default {
   methods: {
     async getVehicle() {
       await axios
-        .get(`vehicles/${this.$route.params.vehicleId}`)
+        .get(`v1/vehicles/${this.$route.params.vehicleId}`)
         .then(response => {
           this.vehicle.id = response.data.id
           this.vehicle.vokId = response.data.vokId

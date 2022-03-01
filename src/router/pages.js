@@ -222,7 +222,7 @@ const pages = [
   {
     path: '/pages/vehicle/:vehicleId',
     name: 'vehicle',
-    component: () => import('@/views/pages/vehicle/Vehicle.vue'),
+    component: () => import('@/vehicle/views/Vehicle.vue'),
     meta: {
       layout: 'content',
     },

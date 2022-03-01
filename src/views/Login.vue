@@ -240,7 +240,7 @@ export default {
 
       const credentials = btoa(`${username.value}:${password.value}`)
       axios
-        .post('authenticate', {
+        .post('v1/authenticate', {
           headers: {
             Authorization: `Basic ${credentials}`,
           },
