@@ -2,7 +2,15 @@ const dashboard = [
   {
     path: '/dashboards/vehicles',
     name: 'dashboard-vehicles',
-    component: () => import('@/views/dashboards/vehicles/Vehicles.vue'),
+    component: () => import('@/vehicle/views/VehiclesList.vue'),
+    meta: {
+      layout: 'content',
+    },
+  },
+  {
+    path: '/dashboards/models',
+    name: 'dashboard-models',
+    component: () => import('@/views/dashboards/vehicle-models/VehicleModels.vue'),
     meta: {
       layout: 'content',
     },

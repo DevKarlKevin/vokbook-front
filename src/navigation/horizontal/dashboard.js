@@ -13,6 +13,11 @@ export default [
       },
       {
         icon: mdiMonitorDashboard,
+        title: 'Models',
+        to: 'dashboard-models',
+      },
+      {
+        icon: mdiMonitorDashboard,
         title: 'CRM',
         to: 'dashboard-crm',
       },
